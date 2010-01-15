@@ -1,0 +1,10 @@
+--- origsrc/qtscriptgenerator-src-0.1.0/qtbindings/qtbindingsbase.pri	2009-02-20 05:42:24.000000000 -0600
++++ src/qtscriptgenerator-src-0.1.0/qtbindings/qtbindingsbase.pri	2009-10-01 23:22:09.218396400 -0500
+@@ -3,6 +3,6 @@ DEPENDPATH += .
+ INCLUDEPATH += .
+ DESTDIR = $$PWD/../plugins/script
+ QT += script
+-CONFIG += debug_and_release
++CONFIG += debug_and_release plugin
+ GENERATEDCPP = $$PWD/../generated_cpp
+ TARGET=$$qtLibraryTarget($$TARGET)

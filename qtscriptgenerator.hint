@@ -1,0 +1,5 @@
+category: KDE
+sdesc: "QtScript bindings for Qt (documentation)"
+ldesc: "Qt Script Generator is a tool that generates Qt bindings for 
+QtScript. With the generated bindings you get access to substantial 
+portions of the Qt API from within QtScript."

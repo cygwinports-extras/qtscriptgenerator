@@ -1,0 +1,44 @@
+inherit qt4-qmake
+
+DESCRIPTION="Qt API plugins for QtScript"
+HOMEPAGE="http://code.google.com/p/qtscriptgenerator/"
+SRC_URI="http://qtscriptgenerator.googlecode.com/files/${PN}-src-${PV}.tar.gz"
+SRC_DIR="${PN}-src-${PV}"
+
+PATCH_URI="0.1.0-qmake.patch"
+
+PKG_NAMES="${PN}"
+qtscriptgenerator_CONTENTS="usr/share/doc/"
+
+for m in core gui network opengl phonon sql svg uitools webkit xml xmlpatterns
+do
+	PKG_NAMES+=" qt4-script-${m}"
+	declare qt4_script_${m}_CONTENTS="${QT4_PLUGINSDIR#/}/script/*_${m}.dll"
+done
+
+src_compile() {
+	lndirs
+
+	cd ${B}/generator
+	cygqmake4
+	cygmake
+	./generator --include-paths=${QT4_INCLUDEDIR} || error "generator failed"
+
+	cd ${B}/qtbindings
+	cygqmake4
+	cygmake
+
+	cd ${B}/tools/qsexec/src
+	cygqmake4
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	qt4pluginto script
+	doqt4plugin plugins/script/*
+
+	docinto html
+	dodoc doc/*
+}
+DOCS="LICENSE.GPL"
