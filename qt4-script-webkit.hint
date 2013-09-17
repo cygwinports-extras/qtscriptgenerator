@@ -1,7 +1,0 @@
-category: KDE
-requires: libgcc1 libQtCore4 libQtScript4 libstdc++6 libQtGui4 libQtNetwork4 libQtWebKit4
-external-source: qtscriptgenerator
-sdesc: "QtScript bindings for QtWebKit"
-ldesc: "Qt Script Generator is a tool that generates Qt bindings for 
-QtScript. With the generated bindings you get access to substantial 
-portions of the Qt API from within QtScript."

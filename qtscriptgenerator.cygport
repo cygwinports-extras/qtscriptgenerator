@@ -1,9 +1,16 @@
 inherit qt4-qmake
 
-DESCRIPTION="Qt API plugins for QtScript"
+NAME="qtscriptgenerator"
+VERSION=0.1.0
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="QtScript bindings for Qt"
+DESCRIPTION="Qt Script Generator is a tool that generates Qt bindings for
+QtScript. With the generated bindings you get access to substantial portions
+of the Qt API from within QtScript."
 HOMEPAGE="http://code.google.com/p/qtscriptgenerator/"
-SRC_URI="http://qtscriptgenerator.googlecode.com/files/${PN}-src-${PV}.tar.gz"
-SRC_DIR="${PN}-src-${PV}"
+SRC_URI="http://qtscriptgenerator.googlecode.com/files/${NAME}-src-${VERSION}.tar.gz"
+SRC_DIR="${NAME}-src-${VERSION}"
 
 PATCH_URI="0.1.0-qmake.patch"
 
