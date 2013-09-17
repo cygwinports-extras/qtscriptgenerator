@@ -1,0 +1,20 @@
+--- origsrc/qtscriptgenerator-src-0.2.0/generator/parser/rpp/pp.h	2013-09-16 23:43:28.335576300 -0500
++++ src/qtscriptgenerator-src-0.2.0/generator/parser/rpp/pp.h	2013-09-17 00:21:30.641116800 -0500
+@@ -55,6 +55,7 @@
+ #include <iostream>
+ #include <cassert>
+ #include <cctype>
++#include <cstdio>
+ 
+ #include <fcntl.h>
+ 
+--- origsrc/qtscriptgenerator-src-0.2.0/generator/parser/rpp/preprocessor.cpp	2012-01-23 05:30:03.000000000 -0600
++++ src/qtscriptgenerator-src-0.2.0/generator/parser/rpp/preprocessor.cpp	2013-09-16 23:46:32.450107100 -0500
+@@ -42,6 +42,7 @@
+ #include "preprocessor.h"
+ 
+ #include <string>
++#include <cstdio>
+ 
+ // register callback for include hooks
+ static void includeFileHook(const std::string &, const std::string &, FILE *);

@@ -1,10 +1,10 @@
 inherit qt4-qmake
 
 NAME="qtscriptgenerator"
-VERSION=0.1.0
+VERSION=0.2.0
 RELEASE=1
-CATEGORY="X11"
-SUMMARY="QtScript bindings for Qt"
+CATEGORY="Devel"
+SUMMARY="QtScript bindings generator"
 DESCRIPTION="Qt Script Generator is a tool that generates Qt bindings for
 QtScript. With the generated bindings you get access to substantial portions
 of the Qt API from within QtScript."
@@ -12,15 +12,27 @@ HOMEPAGE="http://code.google.com/p/qtscriptgenerator/"
 SRC_URI="http://qtscriptgenerator.googlecode.com/files/${NAME}-src-${VERSION}.tar.gz"
 SRC_DIR="${NAME}-src-${VERSION}"
 
-PATCH_URI="0.1.0-qmake.patch"
+PATCH_URI="
+	http://pkgs.fedoraproject.org/cgit/qtscriptgenerator.git/plain/qtscriptgenerator-src-0.1.0-no_phonon.patch
+	http://pkgs.fedoraproject.org/cgit/qtscriptgenerator.git/plain/qtscriptgenerator-kde_phonon443.patch
+	http://pkgs.fedoraproject.org/cgit/qtscriptgenerator.git/plain/memory_alignment_fix.diff
+	0.1.0-qmake.patch
+	0.2.0-gcc47.patch
+"
 
-PKG_NAMES="${PN}"
-qtscriptgenerator_CONTENTS="usr/share/doc/"
+PKG_NAMES="${NAME} qtscriptbindings qtscriptbindings-doc"
+qtscriptgenerator_CONTENTS="${QT4_BINDIR#/}/qtscriptgenerator.exe"
+qtscriptbindings_CATEGORY="Libs"
+qtscriptbindings_SUMMARY="QtScript bindings for Qt libraries"
+qtscriptbindings_DOCS="LGPL_EXCEPTION.txt LICENSE.LGPL README"
+qtscriptbindings_CONTENTS="usr/bin/qsexec.exe ${QT4_PLUGINSDIR#/}/script/"
+qtscriptbindings_doc_CATEGORY="Doc"
+qtscriptbindings_doc_SUMMARY=${qtscriptbindings_SUMMARY}
+qtscriptbindings_doc_CONTENTS="usr/share/doc/qtscriptbindings/*/"
 
 for m in core gui network opengl phonon sql svg uitools webkit xml xmlpatterns
 do
-	PKG_NAMES+=" qt4-script-${m}"
-	declare qt4_script_${m}_CONTENTS="${QT4_PLUGINSDIR#/}/script/*_${m}.dll"
+	qtscriptbindings_OBSOLETES+=" qt4-script-${m}"
 done
 
 src_compile() {
@@ -45,7 +57,12 @@ src_install() {
 	qt4pluginto script
 	doqt4plugin plugins/script/*
 
-	docinto html
-	dodoc doc/*
+	dobin tools/qsexec/qsexec.exe
+
+	exeinto ${QT4_BINDIR}
+	newexe generator/generator.exe qtscriptgenerator.exe
+
+	docinto /qtscriptbindings
+	dodoc doc/ examples/
+#	newdoc tools/qsexec/README.TXT README.qsexec
 }
-DOCS="LICENSE.GPL"
